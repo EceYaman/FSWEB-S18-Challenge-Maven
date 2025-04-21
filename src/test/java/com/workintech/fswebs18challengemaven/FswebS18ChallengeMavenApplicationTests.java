@@ -58,7 +58,7 @@ class FswebS18ChallengeMavenApplicationTests {
 		card.setId(1L);
 		card.setColor(Color.HEARTH);
 		card.setType(Type.ACE);
-		card.setValue(null);
+		card.setValue(0);
 
 		card2 = new Card();
 		card2.setId(2L);
@@ -158,6 +158,8 @@ class FswebS18ChallengeMavenApplicationTests {
 		Card updatedCard = new Card();
 		updatedCard.setId(1L);
 		updatedCard.setType(Type.KING);
+		updatedCard.setName("CardName");
+		updatedCard.setColor(Color.SPADE);
 		given(cardRepository.update(any())).willReturn(updatedCard);
 
 		mockMvc.perform(put("/cards/")
@@ -194,12 +196,11 @@ class FswebS18ChallengeMavenApplicationTests {
 	@DisplayName("Find by value test")
 	void testFindByValue() throws Exception {
 		List<Card> cards = Arrays.asList(card2);
-		given(cardRepository.findByValue(card2.getValue().intValue())).willReturn(cards);
+		given(cardRepository.findByValue(card2.getValue())).willReturn(cards);
 
-		mockMvc.perform(get("/cards/byValue/{value}", card2.getValue().intValue()))
+		mockMvc.perform(get("/cards/byValue/{value}", card2.getValue()))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(jsonPath("$[0].color", is(card2.getColor().toString())));
 	}
-
 }

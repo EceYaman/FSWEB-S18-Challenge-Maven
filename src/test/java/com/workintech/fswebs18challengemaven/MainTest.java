@@ -68,10 +68,10 @@ public class MainTest {
         card.setId(1L);
         card.setColor(Color.SPADE);
         card.setType(Type.KING);
-        card.setValue(null);
+        card.setValue(0);
 
         assertEquals(1L, card.getId());
-        assertEquals(null, card.getValue());
+        assertEquals(0, card.getValue());
         assertEquals(Color.SPADE, card.getColor());
         assertEquals(Type.KING, card.getType());
     }
